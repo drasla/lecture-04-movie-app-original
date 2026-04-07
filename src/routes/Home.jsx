@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Movie from "../components/Movie.jsx";
 import styles from "./Home.module.css";
 
@@ -7,12 +7,13 @@ function Home() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        const getMovies = async () => {
-            const json = await fetch(
-                `https://imdb.iamidiotareyoutoo.com/search?q=2025&lsn=1&v=1`
-            ).then(res => res.json());
-            setMovies(json.description);
-            setLoading(false);
+        const getMovies = () => {
+            fetch(`https://imdb.iamidiotareyoutoo.com/search?q=2025&lsn=1&v=1`)
+                .then(res => res.json())
+                .then(json => {
+                    setMovies(json.description);
+                    setLoading(false);
+                });
         };
 
         getMovies();
@@ -24,7 +25,7 @@ function Home() {
                 <h1>Loading...</h1>
             ) : (
                 <div className={styles.home__movies}>
-                    {movies.map((movie) => (
+                    {movies.map(movie => (
                         <Movie
                             key={movie["#IMDB_ID"]}
                             id={movie["#IMDB_ID"]}
@@ -33,7 +34,6 @@ function Home() {
                             year={movie["#YEAR"]}
                             actor={movie["#ACTORS"]}
                         />
-
                     ))}
                 </div>
             )}
