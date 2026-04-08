@@ -1,12 +1,20 @@
 .home__container {
-    margin-top: 50px;
-    padding: 20px;
+    max-width: 1200px; /* 전체 콘텐츠의 최대 가로폭 제한 */
+    margin: 50px auto; /* 화면 중앙 정렬 */
+    padding: 0 20px;
     box-sizing: border-box;
+}
+
+.home__loading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 300;
+    color: #555;
+    margin-top: 150px;
 }
 
 .home__movies {
     display: flex;
     flex-wrap: wrap;
-    box-sizing: border-box;
     justify-content: space-between;
 }

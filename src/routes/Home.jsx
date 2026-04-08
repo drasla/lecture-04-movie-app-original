@@ -2,37 +2,38 @@ import { useEffect, useState } from "react";
 import Movie from "../components/Movie.jsx";
 import styles from "./Home.module.css";
 
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+
 function Home() {
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        const getMovies = () => {
-            fetch(`https://imdb.iamidiotareyoutoo.com/search?q=2025&lsn=1&v=1`)
-                .then(res => res.json())
-                .then(json => {
-                    setMovies(json.description);
-                    setLoading(false);
-                });
-        };
-
-        getMovies();
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`)
+            .then(res => res.json())
+            .then(json => {
+                setMovies(json.results);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }, []);
 
     return (
         <div className={styles.home__container}>
             {loading ? (
-                <h1>Loading...</h1>
+                <h1 className={styles.home__loading}>Loading Movies...</h1>
             ) : (
                 <div className={styles.home__movies}>
                     {movies.map(movie => (
                         <Movie
-                            key={movie["#IMDB_ID"]}
-                            id={movie["#IMDB_ID"]}
-                            coverImg={movie["#IMG_POSTER"]}
-                            title={movie["#TITLE"]}
-                            year={movie["#YEAR"]}
-                            actor={movie["#ACTORS"]}
+                            key={movie.id}
+                            id={movie.id.toString()}
+                            poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            title={movie.title}
+                            year={movie.release_date ? movie.release_date.split("-")[0] : "미상"}
+                            overview={movie.overview}
                         />
                     ))}
                 </div>

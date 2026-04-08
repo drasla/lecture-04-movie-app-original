@@ -1,34 +1,72 @@
 .movie {
-    width: 48%;
     box-sizing: border-box;
+    display: flex; /* 내부 요소(이미지, 텍스트)를 가로로 배치 */
+    align-items: flex-start;
+    width: 47%;
     background-color: white;
     margin-bottom: 70px;
-    font-weight: 300;
+    margin-top: 40px; /* 떠오른 이미지 공간 확보 */
     padding: 20px;
-    border-radius: 5px;
-    color: #adaeb9;
-    text-decoration: none;
-    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); /* 그림자를 더 크고 연하게 */
+    transition: all 0.3s; /* 호버 애니메이션 준비 */
+}
+
+.movie:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 .movie__img {
     position: relative;
-    top: -50px;
-    max-width: 150px;
-    width: 100%;
-    margin-right: 30px;
-    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);
+    top: -40px;
+    width: 140px;
+    height: 210px; /* 인라인 스타일 대신 CSS에서 관리 */
+    object-fit: cover; /* 이미지 비율이 깨지지 않도록 방지 */
+    border-radius: 8px;
+    margin-right: 25px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0; /* 브라우저가 이미지 크기를 임의로 줄이지 못하게 고정 */
 }
 
-.movie__title, .movie__year {
-    margin: 0;
-    font-weight: 300;
-    text-decoration: none;
+.movie__content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 텍스트가 카드 영역을 벗어나지 않도록 방지 */
+}
+
+.movie__title {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .movie__title a {
-    margin-bottom: 5px;
-    font-size: 24px;
     color: #2c2c2c;
     text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.movie__title a:hover {
+    color: #3498db; /* 타이틀에 마우스를 올리면 색상 변경 */
+}
+
+.movie__year {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #888;
+}
+
+.movie__overview {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    /* 배우 목록이 너무 길 경우 3줄까지만 보여주고 말줄임표(...) 처리 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
