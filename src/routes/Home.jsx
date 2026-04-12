@@ -32,7 +32,7 @@ function Home() {
                             id={movie.id.toString()}
                             poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             title={movie.title}
-                            year={movie.release_date ? movie.release_date.split("-")[0] : "미상"}
+                            vote_average={movie.vote_average}
                             overview={movie.overview}
                         />
                     ))}
